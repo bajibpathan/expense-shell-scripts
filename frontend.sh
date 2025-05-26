@@ -1,5 +1,6 @@
 #!/bin/bash
 
+START_TIME=$(date +%s)
 USERID=$(id -u)
 RED="\e[31m"
 GREEN="\e[32m"
@@ -60,3 +61,7 @@ VALIDATE $? "Copying expense configuration"
 
 systemctl restart nginx &>>$LOG_FILE
 VALIDATE $? "Restarting the nginx service"
+
+END_TIME=$(date +%s)
+TOTAL_TIME=$(( $END_TIME - $START_TIME))
+echo -e "Script execution completed successfully, $YELLOW time taken: $TOTAL_TIME seconds $DEFAULT" | tee -a $LOG_FILE
